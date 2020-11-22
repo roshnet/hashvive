@@ -6,7 +6,7 @@ import { createHash, getFromStorage } from '../utils'
 
 const db = SQLite.openDatabase('app.db')
 
-export default function PasswordInput() {
+export default function PasswordInput(props: { parentCallback?: any }) {
   const [site, setSite] = useState('')
   const [master, setMaster] = useState('')
 
@@ -29,6 +29,7 @@ export default function PasswordInput() {
         (_t, result) => {
           if (result.rowsAffected === 0)
             Alert.alert('Error!', 'There was an error creating an entry.')
+          else props.parentCallback()
         },
       )
     })

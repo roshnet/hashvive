@@ -10,6 +10,7 @@ export default function HomeScreen() {
   const [entries, setEntries] = useState<
     Array<{ site: string; password: string }>
   >([])
+  const [update, triggerUpdate] = useState(0)
 
   useEffect(() => {
     db.transaction((tx) => {
@@ -18,11 +19,15 @@ export default function HomeScreen() {
         setEntries(results._array)
       })
     })
-  }, [])
+  }, [update])
+
+  function updateList() {
+    triggerUpdate(update + 1)
+  }
 
   return (
     <View style={styles.container}>
-      <PasswordInput />
+      <PasswordInput parentCallback={updateList} />
       <ScrollView style={styles.entries}>
         {entries.map((entry) => {
           return (

@@ -22,6 +22,7 @@ export default function SetPasswordScreen() {
     <View style={styles.container}>
       <Text style={styles.heading}>Set a new passphrase</Text>
       <TextInput
+        secureTextEntry={true}
         label="Type a password"
         onChangeText={(text) => setPassword(text)}
       />

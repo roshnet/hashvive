@@ -37,12 +37,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    margin: 15,
-    padding: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderBottomColor: '#000',
+    borderBottomWidth: 0.4,
   },
   text: {
     marginHorizontal: 3,
-    fontSize: 20,
+    fontSize: 17,
   },
   button: {
     width: '40%',

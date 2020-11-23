@@ -2,7 +2,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 import * as SQLite from 'expo-sqlite'
 import React from 'react'
-import { Provider as PaperProvider } from 'react-native-paper'
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 import DemoScreen from './screens/Demo'
 import HomeScreen from './screens/Home'
 import SetPasswordScreen from './screens/SetPassword'
@@ -21,11 +21,21 @@ db.transaction((tx) => {
   )
 })
 
+const theme = {
+  ...DefaultTheme,
+  roundness: 20,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#444',
+    accent: '#f1c40f',
+  },
+}
+
 const Drawer = createDrawerNavigator()
 
 export default function App() {
   return (
-    <PaperProvider>
+    <PaperProvider theme={theme}>
       <NavigationContainer>
         <Drawer.Navigator initialRouteName="Home">
           <Drawer.Screen name="Home" component={HomeScreen} />

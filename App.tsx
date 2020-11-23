@@ -1,5 +1,6 @@
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 import * as SQLite from 'expo-sqlite'
 import React from 'react'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
@@ -31,6 +32,37 @@ const theme = {
 }
 
 const Drawer = createDrawerNavigator()
+const Stack = createStackNavigator()
+
+function SettingsStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Settings"
+      screenOptions={{
+        headerStyle: {
+          height: 40,
+          backgroundColor: '#efefef',
+          elevation: 0,
+        },
+        headerTitleStyle: { display: 'none' },
+        headerLeftContainerStyle: {
+          marginBottom: 40,
+          marginRight: 30,
+        },
+      }}
+    >
+      <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          headerShown: false,
+          headerLeftContainerStyle: { marginLeft: 50 },
+        }}
+      />
+      <Stack.Screen name="SetMasterPassword" component={SetPasswordScreen} />
+    </Stack.Navigator>
+  )
+}
 
 export default function App() {
   return (
@@ -42,12 +74,7 @@ export default function App() {
             options={{ title: 'Password Generator', drawerLabel: 'Home' }}
             component={HomeScreen}
           />
-          <Drawer.Screen name="Settings" component={SettingsScreen} />
-          <Drawer.Screen
-            options={{ drawerLabel: () => null }}
-            name="Set Password"
-            component={SetPasswordScreen}
-          />
+          <Drawer.Screen name="Settings" component={SettingsStack} />
         </Drawer.Navigator>
       </NavigationContainer>
     </PaperProvider>

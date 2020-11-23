@@ -25,7 +25,7 @@ export default function SetPasswordScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Set a new passphrase</Text>
+      <Text style={styles.heading}>Set a new password</Text>
       <TextInput
         mode="outlined"
         secureTextEntry={true}
@@ -50,7 +50,7 @@ export default function SetPasswordScreen() {
         onDismiss={() => setShowSnackbar(false)}
         style={{ width: windowWidth * 0.95 }}
       >
-        Master password changed
+        Master password changed.
       </Snackbar>
     </View>
   )
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: '#efefef',
   },
   heading: {
     fontSize: 22,

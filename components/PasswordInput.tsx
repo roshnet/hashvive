@@ -46,26 +46,24 @@ export default function PasswordInput(props: { parentCallback?: any }) {
     >
       <View style={{ flex: 1 }}>
         <TextInput
-          placeholder="Website (github.com for example)"
+          mode="outlined"
+          label="Generate a new password"
+          placeholder="Add a site (github.com for example)"
           onChangeText={(text) => setSite(text)}
           style={{
             justifyContent: 'flex-start',
             marginRight: 10,
             height: 40,
-            backgroundColor: 'white',
-            borderRadius: 30,
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
           }}
         />
       </View>
       <View>
         <Button
           mode="contained"
+          color="black"
           onPress={insertPasswordRecord}
           style={{
             width: '10%',
-            backgroundColor: '#228',
             justifyContent: 'flex-end',
           }}
         >

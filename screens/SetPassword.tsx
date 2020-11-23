@@ -1,15 +1,19 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import React, { useState } from 'react'
-import { Alert, StyleSheet, View } from 'react-native'
-import { Button, Text, TextInput } from 'react-native-paper'
+import { Alert, Dimensions, StyleSheet, View } from 'react-native'
+import { Button, Snackbar, Text, TextInput } from 'react-native-paper'
+
+const windowWidth = Dimensions.get('window').width
 
 export default function SetPasswordScreen() {
   const [password, setPassword] = useState('')
+  const [showSnackbar, setShowSnackbar] = useState(false)
 
   /* Updates master password in AsyncStorage */
   async function onPasswordSet() {
     try {
       await AsyncStorage.setItem('master', password)
+      setShowSnackbar(true)
     } catch (e) {
       Alert.alert(
         'Error!',
@@ -38,6 +42,14 @@ export default function SetPasswordScreen() {
           Set
         </Button>
       </View>
+      <Snackbar
+        visible={showSnackbar}
+        duration={3000}
+        onDismiss={() => setShowSnackbar(false)}
+        style={{ width: windowWidth * 0.95 }}
+      >
+        Master password changed
+      </Snackbar>
     </View>
   )
 }

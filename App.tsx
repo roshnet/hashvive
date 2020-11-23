@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native'
 import * as SQLite from 'expo-sqlite'
 import React from 'react'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
-import DemoScreen from './screens/Demo'
 import HomeScreen from './screens/Home'
 import SetPasswordScreen from './screens/SetPassword'
 import SettingsScreen from './screens/Settings'
@@ -38,8 +37,11 @@ export default function App() {
     <PaperProvider theme={theme}>
       <NavigationContainer>
         <Drawer.Navigator initialRouteName="Home">
-          <Drawer.Screen name="Home" component={HomeScreen} />
-          <Drawer.Screen name="Demo" component={DemoScreen} />
+          <Drawer.Screen
+            name="Home"
+            options={{ title: 'Password Generator', drawerLabel: 'Home' }}
+            component={HomeScreen}
+          />
           <Drawer.Screen name="Settings" component={SettingsScreen} />
           <Drawer.Screen
             options={{ drawerLabel: () => null }}

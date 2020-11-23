@@ -63,8 +63,7 @@ export default function PasswordInput(props: { parentCallback?: any }) {
           color="black"
           onPress={insertPasswordRecord}
           style={{
-            width: '10%',
-            justifyContent: 'flex-end',
+            width: 30,
           }}
         >
           ADD

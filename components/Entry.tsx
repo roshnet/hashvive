@@ -10,7 +10,6 @@ interface Props {
 export default function Entry({ site, password }: Props) {
   function writeToClipboard() {
     try {
-      console.log('Setting password on clipboard...')
       Clipboard.setString(password)
       ToastAndroid.show('Password copied to clipboard!', ToastAndroid.LONG)
     } catch (err) {
@@ -21,7 +20,6 @@ export default function Entry({ site, password }: Props) {
   return (
     <View style={styles.wrapper}>
       <Text style={styles.text}>{site}</Text>
-      <Text style={styles.text}>{password.substr(0, 10)}</Text>
       <Button
         onPress={writeToClipboard}
         mode="contained"
@@ -40,16 +38,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     margin: 15,
-    borderBottomColor: 'yellow',
-    borderWidth: 0.5,
     padding: 15,
   },
   text: {
     marginHorizontal: 3,
-    color: '#eee',
+    fontSize: 20,
   },
   button: {
-    color: '#eee',
-    borderRadius: 20,
+    width: '40%',
   },
 })

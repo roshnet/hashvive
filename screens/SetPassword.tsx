@@ -22,19 +22,22 @@ export default function SetPasswordScreen() {
     <View style={styles.container}>
       <Text style={styles.heading}>Set a new passphrase</Text>
       <TextInput
+        mode="outlined"
         secureTextEntry={true}
         label="Type a password"
         onChangeText={(text) => setPassword(text)}
       />
-      <Text>{'\n'}</Text>
-      <Button
-        icon="check"
-        mode="contained"
-        onPress={onPasswordSet}
-        style={styles.button}
-      >
-        Set
-      </Button>
+      <View style={{ alignItems: 'center' }}>
+        <Button
+          icon="check"
+          color="black"
+          mode="contained"
+          onPress={onPasswordSet}
+          style={styles.button}
+        >
+          Set
+        </Button>
+      </View>
     </View>
   )
 }
@@ -42,7 +45,6 @@ export default function SetPasswordScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    textAlign: 'center',
     padding: 20,
   },
   heading: {
@@ -52,6 +54,6 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '25%',
-    backgroundColor: '#228',
+    marginTop: 20,
   },
 })

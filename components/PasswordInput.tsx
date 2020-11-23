@@ -29,7 +29,10 @@ export default function PasswordInput(props: { parentCallback?: any }) {
         (_t, result) => {
           if (result.rowsAffected === 0)
             Alert.alert('Error!', 'There was an error creating an entry.')
-          else props.parentCallback()
+          else {
+            setSite('')
+            props.parentCallback()
+          }
         },
       )
     })
@@ -55,6 +58,7 @@ export default function PasswordInput(props: { parentCallback?: any }) {
             marginRight: 10,
             height: 40,
           }}
+          value={site}
         />
       </View>
       <View>

@@ -13,6 +13,7 @@ export default function SetPasswordScreen() {
   async function onPasswordSet() {
     try {
       await AsyncStorage.setItem('master', password)
+      setPassword('')
       setShowSnackbar(true)
     } catch (e) {
       Alert.alert(
@@ -30,6 +31,7 @@ export default function SetPasswordScreen() {
         secureTextEntry={true}
         label="Type a password"
         onChangeText={(text) => setPassword(text)}
+        value={password}
       />
       <View style={{ alignItems: 'center' }}>
         <Button

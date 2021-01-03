@@ -50,7 +50,7 @@ export default function PasswordInput(props: { parentCallback?: any }) {
       <View style={{ flex: 1 }}>
         <TextInput
           mode="outlined"
-          label="Generate a new password"
+          label="Generate a strong password"
           placeholder="Add a site (github.com for example)"
           onChangeText={(text) => setSite(text)}
           style={{

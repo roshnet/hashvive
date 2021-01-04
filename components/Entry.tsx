@@ -13,7 +13,7 @@ import { Button, Modal, Portal, TextInput } from 'react-native-paper'
 interface Props {
   site: string
   password: string
-  parentCallback: Function
+  parentCallback: () => void
 }
 
 const db = SQLite.openDatabase('app.db')

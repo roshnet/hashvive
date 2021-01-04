@@ -6,7 +6,7 @@ import { createHash, getFromStorage } from '../utils'
 
 const db = SQLite.openDatabase('app.db')
 
-export default function PasswordInput(props: { parentCallback?: any }) {
+export default function PasswordInput(props: { parentCallback: () => void }) {
   const [site, setSite] = useState('')
   const [master, setMaster] = useState('')
 

@@ -10,7 +10,7 @@ export default function HomeScreen() {
   const [entries, setEntries] = useState<
     Array<{ site: string; password: string }>
   >([])
-  const [update, triggerUpdate] = useState(0)
+  const [_update, triggerUpdate] = useState(0)
 
   useEffect(() => {
     db.transaction((tx) => {
@@ -19,10 +19,15 @@ export default function HomeScreen() {
         setEntries(results._array)
       })
     })
-  }, [update])
+  }, [_update])
 
+  /*
+  Dummy setter function, used to force render this component.
+  To be passed as callback to components that change static data.
+  Children calling it triggers a re-render, which fetches fresh data.
+  */
   function updateList() {
-    triggerUpdate(update + 1)
+    triggerUpdate(_update + 1)
   }
 
   return (

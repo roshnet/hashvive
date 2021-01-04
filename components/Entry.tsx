@@ -1,13 +1,26 @@
-import React from 'react'
-import { Clipboard, StyleSheet, Text, ToastAndroid, View } from 'react-native'
-import { Button } from 'react-native-paper'
+import * as SQLite from 'expo-sqlite'
+import React, { useState } from 'react'
+import {
+  Alert,
+  Clipboard,
+  StyleSheet,
+  Text,
+  ToastAndroid,
+  View,
+} from 'react-native'
+import { Button, Modal, Portal, TextInput } from 'react-native-paper'
 
 interface Props {
   site: string
   password: string
 }
 
+const db = SQLite.openDatabase('app.db')
+
 export default function Entry({ site, password }: Props) {
+  const [_password, setPassword] = useState(password)
+  const [editBoxVisible, setEditBoxVisible] = useState(false)
+
   function writeToClipboard() {
     try {
       Clipboard.setString(password)
@@ -17,18 +30,66 @@ export default function Entry({ site, password }: Props) {
     }
   }
 
+  function editPassword() {
+    // Run a query to update password for the current site
+    db.transaction((tx) => {
+      tx.executeSql(
+        `
+        UPDATE credentials
+        SET password=?
+        WHERE site=?`,
+        [_password, site],
+        (_t, result) => {
+          if (result.rowsAffected === 0)
+            Alert.alert(
+              'Error',
+              `Sorry, but there was an error changing the password. Perhaps try
+              restarting the app?`,
+            )
+          else {
+            setEditBoxVisible(false)
+            ToastAndroid.show('Done!', ToastAndroid.SHORT)
+          }
+        },
+      )
+    })
+  }
+
   return (
-    <View style={styles.wrapper}>
-      <Text style={styles.text}>{site}</Text>
-      <Button
-        onPress={writeToClipboard}
-        mode="contained"
-        color="white"
-        style={styles.button}
-      >
-        Copy
-      </Button>
-    </View>
+    <>
+      <Portal>
+        <Modal
+          visible={editBoxVisible}
+          onDismiss={() => setEditBoxVisible(false)}
+          contentContainerStyle={styles.modal}
+        >
+          <TextInput
+            label="Edit password"
+            onChangeText={(text) => setPassword(text)}
+            style={styles.input}
+            value={_password}
+          />
+          <Button onPress={editPassword} mode="contained" style={styles.button}>
+            Set
+          </Button>
+        </Modal>
+      </Portal>
+      <View style={styles.wrapper}>
+        <Text style={styles.text}>{site}</Text>
+        <View style={styles.subwrapper}>
+          <Button
+            onPress={() => setEditBoxVisible(true)}
+            mode="text"
+            icon="pencil"
+          >
+            Edit
+          </Button>
+          <Button onPress={writeToClipboard} mode="contained" color="white">
+            Copy
+          </Button>
+        </View>
+      </View>
+    </>
   )
 }
 
@@ -42,11 +103,30 @@ const styles = StyleSheet.create({
     borderBottomColor: '#000',
     borderBottomWidth: 0.4,
   },
+  subwrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  modal: {
+    backgroundColor: 'white',
+    flexDirection: 'column',
+    padding: 30,
+    margin: 20,
+  },
+  heading: {
+    fontSize: 20,
+  },
+  input: {
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+  },
+  button: {
+    width: 50,
+    marginTop: 10,
+    alignSelf: 'center',
+  },
   text: {
     marginHorizontal: 3,
     fontSize: 17,
-  },
-  button: {
-    width: '40%',
   },
 })

@@ -35,6 +35,7 @@ export default function HomeScreen() {
               key={Math.random()}
               site={entry.site}
               password={entry.password}
+              parentCallback={updateList}
             />
           )
         })}

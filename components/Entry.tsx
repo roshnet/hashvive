@@ -13,11 +13,12 @@ import { Button, Modal, Portal, TextInput } from 'react-native-paper'
 interface Props {
   site: string
   password: string
+  parentCallback: Function
 }
 
 const db = SQLite.openDatabase('app.db')
 
-export default function Entry({ site, password }: Props) {
+export default function Entry({ site, password, parentCallback }: Props) {
   const [_password, setPassword] = useState(password)
   const [editBoxVisible, setEditBoxVisible] = useState(false)
 
@@ -31,7 +32,7 @@ export default function Entry({ site, password }: Props) {
   }
 
   function editPassword() {
-    // Run a query to update password for the current site
+    // Update password for the current site
     db.transaction((tx) => {
       tx.executeSql(
         `
@@ -49,6 +50,7 @@ export default function Entry({ site, password }: Props) {
           else {
             setEditBoxVisible(false)
             ToastAndroid.show('Done!', ToastAndroid.SHORT)
+            parentCallback() // Force render Home screen to fetch fresh values
           }
         },
       )

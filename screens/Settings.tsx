@@ -6,7 +6,7 @@ export default function SettingsScreen() {
   return (
     <View style={{ flex: 1 }}>
       <MenuItem title="Change master password" goto="SetMasterPassword" />
-      <MenuItem title="About" goto="Home" />
+      <MenuItem title="About" goto="About" />
     </View>
   )
 }

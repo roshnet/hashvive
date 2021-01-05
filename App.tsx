@@ -5,6 +5,7 @@ import * as SQLite from 'expo-sqlite'
 import React, { useState } from 'react'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 import AboutScreen from './screens/About'
+import ExportScreen from './screens/Export'
 import HomeScreen from './screens/Home'
 import IntroScreen from './screens/Intro'
 import SetPasswordScreen from './screens/SetPassword'
@@ -82,6 +83,7 @@ export default function App() {
           />
           <Drawer.Screen name="Settings" component={SettingsStack} />
           <Drawer.Screen name="About" component={AboutScreen} />
+          <Drawer.Screen name="Export" component={ExportScreen} />
           <Drawer.Screen
             name="Intro"
             component={IntroScreen}

@@ -1,15 +1,16 @@
+import { Ionicons } from '@expo/vector-icons'
 import ViewPager from '@react-native-community/viewpager'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import {
-  Button,
   Dimensions,
-  Image,
   ImageBackground,
   StyleSheet,
   Text,
   View,
 } from 'react-native'
+import { Button } from 'react-native-paper'
+import TypeWriter from 'react-native-typewriter'
 
 const WIDTH = Dimensions.get('window').width
 
@@ -19,33 +20,42 @@ export default function Intro() {
     <ImageBackground source={require('../assets/bg.jpg')} style={styles.image}>
       <ViewPager style={styles.viewPager} initialPage={0}>
         <View style={styles.page} key="1">
-          <Text style={styles.heading}>Generate unguessable passwords</Text>
-          <Text style={styles.paragraph}>
-            Use the ADD button to generate new passwords for your accounts. Type
-            the name of the website ("Facebook", or "facebook.com" for example)
-            to generate a strong password for it.
-          </Text>
-          <Text style={styles.paragraph}>
-            You don't need to remember it - just copy it from the list, and use
-            it in the website.
-          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginHorizontal: 55,
+            }}
+          >
+            <TypeWriter
+              typing={1}
+              minDelay={0.6}
+              maxDelay={0.5}
+              initialDelay={0}
+              style={styles.paragraph}
+            >
+              Hashvive generates your passwords for different websites.
+            </TypeWriter>
+            <Ionicons name="ios-arrow-dropright" size={32} color="white" />
+          </View>
         </View>
         <View style={styles.page} key="2">
-          <Image
-            source={require('../assets/bg.jpg')}
-            style={styles.foreImage}
-          />
-          <Text style={styles.heading}>
-            Instructions
-            {'\n'}
+          <Text style={styles.paragraph}>
+            Set a master password - one you remember or use frequently, and use
+            it to generate unique passwords for different websites.
           </Text>
         </View>
         <View style={styles.page} key="3">
-          <Text style={styles.heading}>Endgame</Text>
+          <Text style={styles.heading}>Set master password</Text>
           <Button
-            onPress={() => navigation.navigate('Home')}
-            title="Go to Home"
-          />
+            onPress={() => navigation.navigate('Settings')}
+            color="white"
+            mode="outlined"
+            style={{ backgroundColor: 'black', borderRadius: 0, marginTop: 10 }}
+          >
+            GO
+          </Button>
         </View>
       </ViewPager>
     </ImageBackground>
@@ -74,7 +84,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 35,
     fontWeight: 'bold',
-    textAlign: 'center',
     backgroundColor: '#0005',
     padding: 20,
     width: WIDTH,
@@ -84,5 +93,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#fff',
     padding: 20,
+    lineHeight: 40,
   },
 })

@@ -55,7 +55,7 @@ function SettingsStack() {
       }}
     >
       <Stack.Screen
-        name="Settings"
+        name="SettingsScreen"
         component={SettingsScreen}
         options={{
           headerShown: false,
@@ -71,7 +71,6 @@ export default function App() {
   const [showIntro, setShowIntro] = useState(true)
   const [isReady, setIsReady] = useState(false)
 
-  // Invert to show intro screens
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>

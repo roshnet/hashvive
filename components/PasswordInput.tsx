@@ -20,7 +20,7 @@ export default function PasswordInput(props: { parentCallback: () => void }) {
     if (site === '') return
 
     // Generate password hash, then insert an entry in database
-    const hash = createHash(site, master, 'md5')
+    const hash = createHash(site, master, 'md5')?.slice(0, 12)
 
     db.transaction((tx) => {
       tx.executeSql(
@@ -50,8 +50,8 @@ export default function PasswordInput(props: { parentCallback: () => void }) {
       <View style={{ flex: 1 }}>
         <TextInput
           mode="outlined"
-          label="Generate a strong password"
-          placeholder="Add a site (github.com for example)"
+          label="Add a site"
+          placeholder="Amazon, or Facebook"
           onChangeText={(text) => setSite(text)}
           style={{
             justifyContent: 'flex-start',

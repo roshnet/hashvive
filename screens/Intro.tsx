@@ -1,8 +1,10 @@
 import { Ionicons } from '@expo/vector-icons'
+import AsyncStorage from '@react-native-community/async-storage'
 import ViewPager from '@react-native-community/viewpager'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import {
+  Alert,
   Dimensions,
   ImageBackground,
   StyleSheet,
@@ -16,6 +18,18 @@ const WIDTH = Dimensions.get('window').width
 
 export default function Intro() {
   const navigation = useNavigation()
+
+  // Set AsyncStorage entry to 'true' on first boot
+  function onIntroComplete() {
+    AsyncStorage.setItem('is_initial_boot', 'true')
+      .then(() => {
+        navigation.navigate('Drawer', { screen: 'Settings' })
+      })
+      .catch(() => {
+        Alert.alert('Error', 'There was an error launching the app.')
+      })
+  }
+
   return (
     <ImageBackground source={require('../assets/bg.jpg')} style={styles.image}>
       <ViewPager style={styles.viewPager} initialPage={0}>
@@ -30,8 +44,8 @@ export default function Intro() {
           >
             <TypeWriter
               typing={1}
-              minDelay={0.6}
-              maxDelay={0.5}
+              minDelay={1}
+              maxDelay={2}
               initialDelay={0}
               style={styles.paragraph}
             >
@@ -49,7 +63,7 @@ export default function Intro() {
         <View style={styles.page} key="3">
           <Text style={styles.heading}>Set master password</Text>
           <Button
-            onPress={() => navigation.navigate('Settings')}
+            onPress={onIntroComplete}
             color="white"
             mode="outlined"
             style={{ backgroundColor: 'black', borderRadius: 0, marginTop: 10 }}

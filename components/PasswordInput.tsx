@@ -51,7 +51,6 @@ export default function PasswordInput(props: { parentCallback: () => void }) {
         <TextInput
           mode="outlined"
           label="Add a site"
-          placeholder="Amazon, or Facebook"
           onChangeText={(text) => setSite(text)}
           style={{
             justifyContent: 'flex-start',

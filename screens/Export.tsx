@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native'
 import * as FileSystem from 'expo-file-system'
 import * as SQLite from 'expo-sqlite'
 import React, { useState } from 'react'
@@ -15,7 +14,6 @@ const exportDir = FileSystem.documentDirectory + 'credentials.json/'
 
 export default function Export() {
   const [credentials, setCredentials] = useState<Array<Credential>>([])
-  const navigator = useNavigation()
 
   db.transaction((tx) => {
     tx.executeSql(
@@ -36,13 +34,32 @@ export default function Export() {
         Alert.alert(
           'Done!',
           `Your passwords were saved on device.`,
-          [{ text: 'OK', onPress: () => navigator.navigate('Home') }],
+          [{ text: 'OK' }],
           { cancelable: false },
         )
       })
       .catch(() => {
         Alert.alert('Error!', 'There was an error creating an entry.')
       })
+  }
+
+  function onDeleteConfirmed() {
+    db.transaction((tx) => {
+      tx.executeSql(`DELETE FROM credentials;`)
+    })
+  }
+
+  function confirmDeletion() {
+    Alert.alert(
+      'Delete all passwords?',
+      'Make sure you have backed up passwords before deleting.\n\nYou can reproduce a password if you remember the master password and the website name.',
+      [
+        {
+          text: 'Back',
+        },
+        { text: 'DELETE', onPress: onDeleteConfirmed },
+      ],
+    )
   }
 
   return (
@@ -55,6 +72,15 @@ export default function Export() {
         style={styles.button}
       >
         Export
+      </Button>
+      <Button
+        onPress={confirmDeletion}
+        icon="delete"
+        color="red"
+        mode="contained"
+        style={styles.button}
+      >
+        Delete Everything
       </Button>
     </View>
   )
@@ -69,5 +95,6 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 0,
+    marginVertical: 15,
   },
 })

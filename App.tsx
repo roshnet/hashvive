@@ -57,7 +57,13 @@ function drawerNavigator() {
         component={HomeScreen}
       />
       <Drawer.Screen name="Settings" component={settingsStack} />
-      <Drawer.Screen name="Export" component={ExportScreen} />
+      <Drawer.Screen
+        name="Export"
+        component={ExportScreen}
+        options={{
+          title: 'Backup & Delete',
+        }}
+      />
     </Drawer.Navigator>
   )
 }

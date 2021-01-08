@@ -13,16 +13,15 @@ export default function HomeScreen() {
 
   useEffect(() => {
     navigation.addListener('focus', updateList)
+    AsyncStorage.getItem('@intro_shown').then((value) => {
+      if (!value) navigation.navigate('Intro')
+    })
   })
 
   const [_update, triggerUpdate] = useState(0)
   const [entries, setEntries] = useState<
     Array<{ site: string; password: string }>
   >([])
-
-  AsyncStorage.getItem('@first_boot').then((value) => {
-    if (!value) navigation.navigate('Intro')
-  })
 
   useEffect(() => {
     db.transaction((tx) => {

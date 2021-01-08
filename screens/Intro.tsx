@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons'
+import AsyncStorage from '@react-native-community/async-storage'
 import ViewPager from '@react-native-community/viewpager'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
@@ -18,7 +19,9 @@ export default function Intro() {
   const navigation = useNavigation()
 
   function onIntroComplete() {
-    navigation.navigate('Drawer', { screen: 'Settings' })
+    AsyncStorage.setItem('@intro_shown', 'yes').then(() => {
+      navigation.navigate('Drawer', { screen: 'Settings' })
+    })
   }
 
   return (

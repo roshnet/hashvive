@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { Alert, Dimensions, StyleSheet, View } from 'react-native'
 import { Button, Snackbar, Text, TextInput } from 'react-native-paper'
+import { populateDatabase } from '../utils'
 
 const WIDTH = Dimensions.get('window').width
 
@@ -15,9 +16,18 @@ export default function SetPasswordScreen() {
   async function onPasswordSet() {
     if (password === '') return
     try {
+      const _password = password
       await AsyncStorage.setItem('master', password)
       setPassword('')
       setShowSnackbar(true)
+
+      AsyncStorage.getItem('@first_boot').then((value) => {
+        if (!value) {
+          populateDatabase(_password)
+          AsyncStorage.setItem('@first_boot', 'done')
+        }
+      })
+
       setTimeout(() => {
         navigation.goBack()
       }, 500)

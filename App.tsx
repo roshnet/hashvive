@@ -42,7 +42,15 @@ const RootStack = createStackNavigator()
 
 function drawerNavigator() {
   return (
-    <Drawer.Navigator initialRouteName="Home">
+    <Drawer.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#222',
+        },
+        headerTintColor: 'white',
+      }}
+    >
       <Drawer.Screen
         name="Home"
         options={{ title: 'Generate Password', drawerLabel: 'Home' }}
@@ -92,9 +100,7 @@ export default function App() {
   async function _checkFirstBoot() {
     AsyncStorage.getItem('@first_boot')
       .then((value) => {
-        if (value === 'true') {
-          setDefaultScreen('Intro')
-        }
+        if (!value) setDefaultScreen('Intro')
       })
       .catch(() => {
         Alert.alert('Error', 'Error loading app data.')
@@ -116,7 +122,12 @@ export default function App() {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        <RootStack.Navigator initialRouteName={defaultScreen}>
+        <RootStack.Navigator
+          initialRouteName={defaultScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
           <RootStack.Screen
             name="Drawer"
             component={drawerNavigator}

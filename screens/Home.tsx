@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-community/async-storage'
+import { useNavigation } from '@react-navigation/native'
 import * as SQLite from 'expo-sqlite'
 import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
@@ -7,10 +9,20 @@ import PasswordInput from '../components/PasswordInput'
 const db = SQLite.openDatabase('app.db')
 
 export default function HomeScreen() {
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    navigation.addListener('focus', updateList)
+  })
+
+  const [_update, triggerUpdate] = useState(0)
   const [entries, setEntries] = useState<
     Array<{ site: string; password: string }>
   >([])
-  const [_update, triggerUpdate] = useState(0)
+
+  AsyncStorage.getItem('@first_boot').then((value) => {
+    if (!value) navigation.navigate('Intro')
+  })
 
   useEffect(() => {
     db.transaction((tx) => {

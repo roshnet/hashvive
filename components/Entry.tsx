@@ -71,7 +71,7 @@ export default function Entry({ site, password, parentCallback }: Props) {
             style={styles.input}
             value={_password}
           />
-          <Button onPress={editPassword} mode="contained" style={styles.button}>
+          <Button onPress={editPassword} mode="outlined" style={styles.button}>
             Set
           </Button>
         </Modal>
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     width: 50,
     marginTop: 10,
     alignSelf: 'center',
+    borderRadius: 0,
   },
   text: {
     marginHorizontal: 3,

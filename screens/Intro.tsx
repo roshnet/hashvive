@@ -1,10 +1,8 @@
 import { Ionicons } from '@expo/vector-icons'
-import AsyncStorage from '@react-native-community/async-storage'
 import ViewPager from '@react-native-community/viewpager'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import {
-  Alert,
   Dimensions,
   ImageBackground,
   StyleSheet,
@@ -19,15 +17,8 @@ const WIDTH = Dimensions.get('window').width
 export default function Intro() {
   const navigation = useNavigation()
 
-  // Set AsyncStorage entry to 'true' on first boot
   function onIntroComplete() {
-    AsyncStorage.setItem('is_initial_boot', 'true')
-      .then(() => {
-        navigation.navigate('Drawer', { screen: 'Settings' })
-      })
-      .catch(() => {
-        Alert.alert('Error', 'There was an error launching the app.')
-      })
+    navigation.navigate('Drawer', { screen: 'Settings' })
   }
 
   return (

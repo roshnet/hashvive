@@ -93,7 +93,7 @@ function settingsStack() {
         },
         headerTitleStyle: { display: 'none' },
         headerLeftContainerStyle: {
-          marginBottom: 40,
+          marginBottom: -20,
           marginRight: 30,
         },
       }}

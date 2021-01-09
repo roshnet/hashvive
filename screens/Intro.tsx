@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-community/async-storage'
 import ViewPager from '@react-native-community/viewpager'
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Dimensions,
   ImageBackground,
@@ -17,6 +17,15 @@ const WIDTH = Dimensions.get('window').width
 
 export default function Intro() {
   const navigation = useNavigation()
+
+  const [typingStatus, setTypingStatus] = useState(0)
+
+  useEffect(() => {
+    // Trigger effect after 1 second
+    setTimeout(() => {
+      setTypingStatus(1)
+    }, 1000)
+  }, [])
 
   function onIntroComplete() {
     AsyncStorage.setItem('@intro_shown', 'yes').then(() => {
@@ -37,7 +46,7 @@ export default function Intro() {
             }}
           >
             <TypeWriter
-              typing={1}
+              typing={typingStatus}
               minDelay={1}
               maxDelay={2}
               initialDelay={0}

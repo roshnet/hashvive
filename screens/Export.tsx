@@ -76,11 +76,11 @@ export default function Export() {
       <Button
         onPress={confirmDeletion}
         icon="delete"
-        color="red"
+        color="darkred"
         mode="contained"
         style={styles.button}
       >
-        Delete Everything
+        Delete all passwords
       </Button>
     </View>
   )

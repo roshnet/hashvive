@@ -1,7 +1,7 @@
 import * as FileSystem from 'expo-file-system'
 import * as SQLite from 'expo-sqlite'
 import React, { useState } from 'react'
-import { Alert, StyleSheet, ToastAndroid, View } from 'react-native'
+import { Alert, Share, StyleSheet, ToastAndroid, View } from 'react-native'
 import { Button } from 'react-native-paper'
 
 interface Credential {
@@ -27,20 +27,15 @@ export default function Export() {
   })
 
   async function exportPasswords() {
-    FileSystem.writeAsStringAsync(exportDir, JSON.stringify(credentials), {
-      encoding: 'utf8',
-    })
-      .then(() => {
-        Alert.alert(
-          'Done!',
-          `Your passwords were saved on device.`,
-          [{ text: 'OK' }],
-          { cancelable: false },
-        )
-      })
-      .catch(() => {
-        Alert.alert('Error!', 'There was an error creating an entry.')
-      })
+    Share.share(
+      {
+        title: 'Hashvive',
+        message: JSON.stringify(credentials),
+      },
+      {
+        dialogTitle: 'Export credentials as JSON',
+      },
+    )
   }
 
   function onDeleteConfirmed() {

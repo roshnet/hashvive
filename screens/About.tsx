@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     borderBottomColor: 'grey',
     borderBottomWidth: 1,
+    paddingBottom: 8,
   },
   paragraph: {
     fontSize: 15,

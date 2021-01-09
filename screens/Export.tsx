@@ -70,7 +70,7 @@ export default function Export() {
         onPress={exportPasswords}
         icon="download"
         color="black"
-        mode="contained"
+        mode="outlined"
         style={styles.button}
       >
         Export
@@ -79,7 +79,7 @@ export default function Export() {
         onPress={confirmDeletion}
         icon="delete"
         color="darkred"
-        mode="contained"
+        mode="outlined"
         style={styles.button}
       >
         Delete all passwords

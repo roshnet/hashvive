@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import AppLoading from 'expo-app-loading'
 import * as SQLite from 'expo-sqlite'
 import React, { useState } from 'react'
-import { Alert } from 'react-native'
+import { Alert, StatusBar } from 'react-native'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 import AboutScreen from './screens/About'
 import ExportScreen from './screens/Export'
@@ -44,16 +44,29 @@ function drawerNavigator() {
   return (
     <Drawer.Navigator
       initialRouteName="Home"
+      drawerType="slide"
       screenOptions={{
         headerStyle: {
           backgroundColor: '#222',
         },
         headerTintColor: 'white',
       }}
+      drawerStyle={{
+        backgroundColor: '#111',
+        width: 220,
+      }}
+      drawerContentOptions={{
+        activeTintColor: '#fff',
+        activeBackgroundColor: '#68f',
+        inactiveTintColor: 'grey',
+      }}
     >
       <Drawer.Screen
         name="Home"
-        options={{ title: 'Generate Password', drawerLabel: 'Home' }}
+        options={{
+          title: 'Generate Password',
+          drawerLabel: 'Home',
+        }}
         component={HomeScreen}
       />
       <Drawer.Screen name="Settings" component={settingsStack} />
@@ -127,6 +140,7 @@ export default function App() {
 
   return (
     <PaperProvider theme={theme}>
+      <StatusBar backgroundColor="black" barStyle="light-content" />
       <NavigationContainer>
         <RootStack.Navigator
           initialRouteName={defaultScreen}

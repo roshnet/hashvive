@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import * as SQLite from 'expo-sqlite'
 import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
@@ -11,26 +11,30 @@ const db = SQLite.openDatabase('app.db')
 export default function HomeScreen() {
   const navigation = useNavigation()
 
-  useEffect(() => {
-    navigation.addListener('focus', updateList)
-    AsyncStorage.getItem('@intro_shown').then((value) => {
-      if (!value) navigation.navigate('Intro')
-    })
-  }, [])
-
   const [_update, triggerUpdate] = useState(0)
   const [entries, setEntries] = useState<
     Array<{ site: string; password: string }>
   >([])
 
   useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM credentials`, [], (t, { rows }) => {
-        let results: any = rows
-        setEntries(results._array)
-      })
+    console.log('onFocus listener added to Home (should be seen once!')
+    navigation.addListener('focus', updateList)
+    AsyncStorage.getItem('@intro_shown').then((value) => {
+      if (!value) navigation.navigate('Intro')
     })
-  }, [_update])
+  }, [])
+
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log('onFocusEffect being called -', _update + Math.random())
+      db.transaction((tx) => {
+        tx.executeSql(`SELECT * FROM credentials`, [], (t, { rows }) => {
+          let results: any = rows
+          setEntries(results._array)
+        })
+      })
+    }, [_update]),
+  )
 
   /*
   Dummy setter function, used to force render this component.
@@ -38,6 +42,7 @@ export default function HomeScreen() {
   Children calling it triggers a re-render, which fetches fresh data.
   */
   function updateList() {
+    console.log('Triggering update...')
     triggerUpdate(_update + 1)
   }
 

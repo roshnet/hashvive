@@ -1,8 +1,9 @@
+import AsyncStorage from '@react-native-community/async-storage'
 import * as SQLite from 'expo-sqlite'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Alert, View } from 'react-native'
 import { Button, TextInput } from 'react-native-paper'
-import { createHash, getFromStorage } from '../utils'
+import { createHash } from '../utils'
 
 const db = SQLite.openDatabase('app.db')
 
@@ -10,17 +11,15 @@ export default function PasswordInput(props: { parentCallback: () => void }) {
   const [site, setSite] = useState('')
   const [master, setMaster] = useState('')
 
-  useEffect(() => {
-    getFromStorage('master').then((value) => {
-      setMaster(value)
-    })
-  }, [])
-
   function insertPasswordRecord() {
     if (site === '') return
 
+    AsyncStorage.getItem('master').then((value) => {
+      setMaster(String(value))
+    })
+
     // Generate password hash, then insert an entry in database
-    const hash = createHash(site, master, 'md5')?.slice(0, 12)
+    const hash = createHash(site, master, 'md5').slice(0, 12)
 
     db.transaction((tx) => {
       tx.executeSql(

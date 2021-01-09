@@ -16,7 +16,7 @@ export default function HomeScreen() {
     AsyncStorage.getItem('@intro_shown').then((value) => {
       if (!value) navigation.navigate('Intro')
     })
-  })
+  }, [])
 
   const [_update, triggerUpdate] = useState(0)
   const [entries, setEntries] = useState<

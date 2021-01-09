@@ -1,7 +1,7 @@
 import * as FileSystem from 'expo-file-system'
 import * as SQLite from 'expo-sqlite'
 import React, { useState } from 'react'
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, ToastAndroid, View } from 'react-native'
 import { Button } from 'react-native-paper'
 
 interface Credential {
@@ -45,7 +45,9 @@ export default function Export() {
 
   function onDeleteConfirmed() {
     db.transaction((tx) => {
-      tx.executeSql(`DELETE FROM credentials;`)
+      tx.executeSql(`DELETE FROM credentials;`, [], () => {
+        ToastAndroid.show('All passwords wiped.', ToastAndroid.SHORT)
+      })
     })
   }
 

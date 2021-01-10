@@ -17,7 +17,6 @@ export default function HomeScreen() {
   >([])
 
   useEffect(() => {
-    console.log('onFocus listener added to Home (should be seen once!')
     navigation.addListener('focus', updateList)
     AsyncStorage.getItem('@intro_shown').then((value) => {
       if (!value) navigation.navigate('Intro')
@@ -26,7 +25,6 @@ export default function HomeScreen() {
 
   useFocusEffect(
     React.useCallback(() => {
-      console.log('onFocusEffect being called -', _update + Math.random())
       db.transaction((tx) => {
         tx.executeSql(`SELECT * FROM credentials`, [], (t, { rows }) => {
           let results: any = rows
@@ -42,7 +40,6 @@ export default function HomeScreen() {
   Children calling it triggers a re-render, which fetches fresh data.
   */
   function updateList() {
-    console.log('Triggering update...')
     triggerUpdate(_update + 1)
   }
 

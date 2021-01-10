@@ -13,6 +13,7 @@ import HomeScreen from './screens/Home'
 import IntroScreen from './screens/Intro'
 import SetPasswordScreen from './screens/SetPassword'
 import SettingsScreen from './screens/Settings'
+
 const db = SQLite.openDatabase('app.db')
 
 db.transaction((tx) => {

@@ -6,10 +6,11 @@ It uses the "common" password to create a random hash (MD5, actually) for each s
 Passwords generated that way are less likely to crack when brute forcing. However, you could manually edit them to create an even more random password.
 
 ## Installation
-There are two ways to install - direct download app binary, or build from source.
+There are two ways to install - download app binary, or build from source.
 
 #### Download Binary
-[Download](https://drive.google.com/file/d/1AcG4d_0NTFeG6IWJxChWJnU-lpwNqARY/view?usp=sharing) the APK to run on your device.
+
+You can download the binary from the [latest Github release](https://github.com/roshnet/hashvive/releases/download/v1.0.0/hashvive-1.0.0.apk).
 
 #### Building from source
 

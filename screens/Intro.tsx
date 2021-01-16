@@ -1,10 +1,10 @@
-import { Ionicons } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-community/async-storage'
 import ViewPager from '@react-native-community/viewpager'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import {
   Dimensions,
+  Image,
   ImageBackground,
   StyleSheet,
   Text,
@@ -54,7 +54,15 @@ export default function Intro() {
             >
               Hashvive generates your passwords for different websites.
             </TypeWriter>
-            <Ionicons name="ios-arrow-dropright" size={32} color="white" />
+            <Image
+              source={require('../assets/arrow-next.png')}
+              style={{
+                maxHeight: 40,
+                maxWidth: 40,
+                backgroundColor: '#aaa',
+                borderRadius: 10,
+              }}
+            />
           </View>
         </View>
         <View style={styles.page} key="2">
@@ -64,14 +72,13 @@ export default function Intro() {
           </Text>
         </View>
         <View style={styles.page} key="3">
-          <Text style={styles.heading}>Set master password</Text>
           <Button
             onPress={onIntroComplete}
             color="white"
             mode="outlined"
             style={{ backgroundColor: 'black', borderRadius: 0, marginTop: 10 }}
           >
-            GO
+            Set Master Password
           </Button>
         </View>
       </ViewPager>

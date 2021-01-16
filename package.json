@@ -19,7 +19,6 @@
     "crypto-es": "^1.2.6",
     "expo": "~39.0.2",
     "expo-app-loading": "^1.0.1",
-    "expo-file-system": "~9.2.0",
     "expo-sqlite": "~8.4.0",
     "prettier": "2.1.2",
     "react": "16.13.1",

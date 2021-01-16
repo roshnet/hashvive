@@ -1,4 +1,3 @@
-import * as FileSystem from 'expo-file-system'
 import * as SQLite from 'expo-sqlite'
 import React, { useState } from 'react'
 import { Alert, Share, StyleSheet, ToastAndroid, View } from 'react-native'
@@ -10,7 +9,6 @@ interface Credential {
 }
 
 const db = SQLite.openDatabase('app.db')
-const exportDir = FileSystem.documentDirectory + 'credentials.json/'
 
 export default function Export() {
   const [credentials, setCredentials] = useState<Array<Credential>>([])

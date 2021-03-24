@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import CryptoES from 'crypto-es'
-import * as SQLite from 'expo-sqlite'
+import { openDatabase } from 'react-native-sqlite-storage'
 
 type HashMethods = 'md5' | 'sha1' | 'pbkdf2'
 type Entry = {
@@ -8,7 +8,11 @@ type Entry = {
   password: string
 }
 
-const db = SQLite.openDatabase('app.db')
+const db = openDatabase({
+  name: 'app.db',
+  location: 'default',
+})
+
 const DEFAULT_SITES: Array<string> = [
   'Amazon',
   'Facebook',

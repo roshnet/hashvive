@@ -1,14 +1,17 @@
-import * as SQLite from 'expo-sqlite'
 import React, { useState } from 'react'
 import { Alert, Share, StyleSheet, ToastAndroid, View } from 'react-native'
 import { Button } from 'react-native-paper'
+import { openDatabase } from 'react-native-sqlite-storage'
 
 interface Credential {
   site: string
   password: string
 }
 
-const db = SQLite.openDatabase('app.db')
+const db = openDatabase({
+  name: 'app.db',
+  location: 'default',
+})
 
 export default function Export() {
   const [credentials, setCredentials] = useState<Array<Credential>>([])
@@ -18,8 +21,11 @@ export default function Export() {
       'SELECT site, password FROM credentials',
       [],
       (_t, { rows }) => {
-        const content: any = rows
-        setCredentials(content._array)
+        let resultSet: any = []
+        for (let i = 0; i < rows.length; i++) {
+          resultSet.push(rows.item(i))
+        }
+        setCredentials(resultSet)
       },
     )
   })

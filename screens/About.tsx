@@ -9,7 +9,7 @@ export default function AboutScreen() {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.heading}>About</Text>
-      <Text>Hashvive 1.0.0 {'\n'}</Text>
+      <Text>Hashvive 1.0.1 {'\n'}</Text>
       <Text style={styles.paragraph}>
         Hashvive is a password generator you can use to avoid using a single
         password for all platforms. It's inspired by the password section on the{' '}

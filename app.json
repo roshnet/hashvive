@@ -1,27 +1,25 @@
 {
-  "expo": {
-    "name": "Hashvive",
-    "slug": "hashvive",
-    "version": "1.0.0",
-    "icon": "./assets/icon.png",
-    "updates": {
-      "fallbackToCacheTimeout": 0
+  "name": "Hashvive",
+  "slug": "hashvive",
+  "version": "1.0.0",
+  "icon": "./assets/icon.png",
+  "updates": {
+    "fallbackToCacheTimeout": 0
+  },
+  "assetBundlePatterns": [
+    "**/*"
+  ],
+  "ios": {
+    "supportsTablet": true
+  },
+  "android": {
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/icon.png",
+      "backgroundColor": "#FFFFFF"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.roshnet.hashvive"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+    "package": "com.roshnet.hashvive"
+  },
+  "web": {
+    "favicon": "./assets/favicon.png"
   }
 }

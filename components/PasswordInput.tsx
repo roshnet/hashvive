@@ -1,11 +1,14 @@
 import AsyncStorage from '@react-native-community/async-storage'
-import * as SQLite from 'expo-sqlite'
 import React, { useState } from 'react'
 import { Alert, View } from 'react-native'
 import { Button, TextInput } from 'react-native-paper'
+import { openDatabase } from 'react-native-sqlite-storage'
 import { createHash } from '../utils'
 
-const db = SQLite.openDatabase('app.db')
+const db = openDatabase({
+  name: 'app.db',
+  location: 'default',
+})
 
 export default function PasswordInput(props: { parentCallback: () => void }) {
   const [site, setSite] = useState('')

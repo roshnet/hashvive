@@ -2,11 +2,11 @@ import AsyncStorage from '@react-native-community/async-storage'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import AppLoading from 'expo-app-loading'
-import * as SQLite from 'expo-sqlite'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, StatusBar } from 'react-native'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
+import SplashScreen from 'react-native-splash-screen'
+import { openDatabase } from 'react-native-sqlite-storage'
 import AboutScreen from './screens/About'
 import ExportScreen from './screens/Export'
 import HomeScreen from './screens/Home'
@@ -14,7 +14,10 @@ import IntroScreen from './screens/Intro'
 import SetPasswordScreen from './screens/SetPassword'
 import SettingsScreen from './screens/Settings'
 
-const db = SQLite.openDatabase('app.db')
+const db = openDatabase({
+  name: 'app.db',
+  location: 'default',
+})
 
 db.transaction((tx) => {
   tx.executeSql(
@@ -51,6 +54,7 @@ function drawerNavigator() {
           backgroundColor: '#222',
         },
         headerTintColor: 'white',
+        headerShown: true,
       }}
       drawerStyle={{
         backgroundColor: '#111',
@@ -117,26 +121,20 @@ export default function App() {
   const [defaultScreen, setDefaultScreen] = useState('Drawer')
   const [isReady, setIsReady] = useState(false)
 
-  async function _checkFirstBoot() {
+  useEffect(() => {
     AsyncStorage.getItem('@first_boot')
       .then((value) => {
         if (!value) setDefaultScreen('Intro')
+        setIsReady(true)
+        SplashScreen.hide()
       })
       .catch(() => {
-        Alert.alert('Error', 'Error loading app data.')
+        Alert.alert('Error', 'Error launching the app.')
       })
-  }
+  }, [isReady])
 
   if (!isReady) {
-    return (
-      <AppLoading
-        startAsync={_checkFirstBoot}
-        onFinish={() => setIsReady(true)}
-        onError={() => {
-          Alert.alert('Error', 'Error launching the app.')
-        }}
-      />
-    )
+    return null
   }
 
   return (
@@ -149,11 +147,7 @@ export default function App() {
             headerShown: false,
           }}
         >
-          <RootStack.Screen
-            name="Drawer"
-            component={drawerNavigator}
-            options={{ headerShown: false }}
-          />
+          <RootStack.Screen name="Drawer" component={drawerNavigator} />
           <RootStack.Screen name="Intro" component={IntroScreen} />
         </RootStack.Navigator>
       </NavigationContainer>

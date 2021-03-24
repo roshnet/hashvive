@@ -1,4 +1,3 @@
-import * as SQLite from 'expo-sqlite'
 import React, { useState } from 'react'
 import {
   Alert,
@@ -9,6 +8,7 @@ import {
   View,
 } from 'react-native'
 import { Button, Modal, Portal, TextInput } from 'react-native-paper'
+import { openDatabase } from 'react-native-sqlite-storage'
 
 interface Props {
   site: string
@@ -16,7 +16,10 @@ interface Props {
   parentCallback: () => void
 }
 
-const db = SQLite.openDatabase('app.db')
+const db = openDatabase({
+  name: 'app.db',
+  location: 'default',
+})
 
 export default function Entry({ site, password, parentCallback }: Props) {
   const [_password, setPassword] = useState(password)

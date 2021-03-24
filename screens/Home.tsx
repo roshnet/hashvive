@@ -1,12 +1,15 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
-import * as SQLite from 'expo-sqlite'
 import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
+import { openDatabase } from 'react-native-sqlite-storage'
 import Entry from '../components/Entry'
 import PasswordInput from '../components/PasswordInput'
 
-const db = SQLite.openDatabase('app.db')
+const db = openDatabase({
+  name: 'app.db',
+  location: 'default',
+})
 
 export default function HomeScreen() {
   const navigation = useNavigation()
@@ -27,8 +30,11 @@ export default function HomeScreen() {
     React.useCallback(() => {
       db.transaction((tx) => {
         tx.executeSql(`SELECT * FROM credentials`, [], (t, { rows }) => {
-          let results: any = rows
-          setEntries(results._array)
+          let resultSet: Array<any> = []
+          for (let i = 0; i < rows.length; i++) {
+            resultSet.push(rows.item(i))
+          }
+          setEntries(resultSet)
         })
       })
     }, [_update]),

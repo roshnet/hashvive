@@ -10,7 +10,13 @@ There are two ways to install - download app binary, or build from source.
 
 #### Download Binary
 
-You can download the binary from the [latest Github release](https://github.com/roshnet/hashvive/releases/download/v1.0.0/hashvive-1.0.0.apk).
+You can download the binary from the [latest GitHub release](https://github.com/roshnet/hashvive/releases/).
+
+### NOTE
+
+The steps listed below are not necessary now. You can directly build using the `react-native` CLI from the docs.
+
+You can also contribute to this project without having Expo installed.
 
 #### Building from source
 
